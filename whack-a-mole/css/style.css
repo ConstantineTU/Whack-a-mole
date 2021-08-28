@@ -109,8 +109,8 @@ body._lock {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 ._container {
@@ -120,8 +120,8 @@ body._lock {
 
 .page {
   -webkit-box-flex: 1;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
 }
 
 .title {
@@ -144,7 +144,7 @@ body._lock {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   margin: 0 auto;
 }
 
@@ -153,11 +153,11 @@ body._lock {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin: 15px 0px 10px 0px;
 }
 
@@ -182,8 +182,8 @@ body._lock {
 
 .game-hole {
   -webkit-box-flex: 1;
-  -ms-flex: 1 0 33.33%;
-  flex: 1 0 33.33%;
+      -ms-flex: 1 0 33.33%;
+          flex: 1 0 33.33%;
   position: relative;
   overflow: hidden;
 }
@@ -194,12 +194,11 @@ body._lock {
   background: url("../img/svg/dirt.svg") bottom center no-repeat;
   height: 70px;
   background-size: contain;
-  z-index: 2;
   bottom: -30px;
   width: 100%;
 }
 
-.up {
+.game-hole.up .game-mole {
   top: 0;
 }
 
