@@ -96,7 +96,7 @@ html {
 body {
   font-weight: 700;
   color: #000;
-  background-color: #166144;
+  background-color: #ffc600;
 }
 
 body._lock {
@@ -248,10 +248,12 @@ body._lock {
 
 .panel {
   width: 100px;
-  height: 500px;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
   font-size: 35px;
   text-align: center;
-  border: solid 5px rgba(255, 255, 255, 0.2);
+  border: solid 5px rgba(255, 255, 255, 0);
   border-radius: 10px;
 }
 
@@ -282,6 +284,7 @@ body._lock {
 }
 
 .panel-left {
+  height: 400px;
   margin: 0px 30px 0px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -295,7 +298,9 @@ body._lock {
 }
 
 .panel-right {
-  height: 450px;
+  min-height: -webkit-max-content;
+  min-height: -moz-max-content;
+  min-height: max-content;
   margin: 0px 0px 0px 30px;
 }
 
@@ -350,7 +355,7 @@ body._lock {
 .title {
   text-align: center;
   font-size: 100px;
-  width: 700px;
+  max-width: 700px;
   padding: 15px 0px 0px 0px;
 }
 
@@ -358,6 +363,8 @@ body._lock {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   padding: 0px 30px;
+  width: 150px;
+  display: inline-block;
 }
 
 .game {
@@ -369,7 +376,7 @@ body._lock {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   margin: 0 auto;
-  cursor: url("../img/Hammer.cur"), url(../img/Hammer.png) 25 25, default;
+  cursor: url("../img/Hammer.cur"), url(../img/Hammer.png) 0 0, default;
 }
 
 .game-mole {
@@ -385,7 +392,7 @@ body._lock {
 }
 
 .game-mole:active {
-  cursor: url("../img/Hammer_pow.cur"), url(../img/Hammer_pow.png) 25 25, default;
+  cursor: url("../img/Hammer_pow.cur"), url(../img/Hammer_pow.png) 0 0, default;
 }
 
 .game-hole {
@@ -402,6 +409,7 @@ body._lock {
   background: url("../img/svg/dirt.svg") bottom center no-repeat;
   height: 70px;
   background-size: contain;
+  z-index: 5;
   bottom: -30px;
   width: 100%;
 }
@@ -421,11 +429,203 @@ body._lock {
     max-width: none;
     max-width: 750px;
   }
+
+  .title {
+    font-size: 75px;
+  }
+
+  .score {
+    width: 125px;
+    padding: 0px 0px 0px 0px;
+  }
+
+  .game {
+    height: 500px;
+  }
 }
 
 @media (max-width: 750px) {
   ._container {
     max-width: none;
     padding: 0 10px;
+  }
+
+  .wrap {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+
+  .top-btn #newGame {
+    margin: 0px 10px 0px 0px;
+  }
+
+  #btnSaveGame {
+    font-size: 25px;
+    margin: 0px 0px 0px 0px;
+    padding: 5px 10px 5px 10px;
+  }
+
+  #btnSaveGame:active {
+    margin: 0px 0px 0px 0px;
+  }
+
+  #btnLoadGame {
+    font-size: 25px;
+    margin: 0px 0px 0px 0px;
+    padding: 5px 10px 5px 10px;
+  }
+
+  #btnLoadGame:active {
+    margin: 0px 0px 0px 0px;
+  }
+
+  .panel {
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    width: auto;
+  }
+
+  .panel-wrap__right {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+
+  .panel-wrap__left {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    width: 330px;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 33.33%;
+            flex: 1 0 33.33%;
+  }
+
+  .panel-left {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    min-height: 137px;
+    margin: 0px 0px 0px 0px;
+  }
+
+  .panel-right {
+    margin: 30px 0px 0px 0px;
+  }
+
+  .panel__items {
+    width: 90px;
+  }
+
+  .expLvl {
+    margin: 0px 0px 10px 0px;
+  }
+
+  .title {
+    font-size: 60px;
+  }
+
+  .game {
+    height: 360px;
+  }
+
+  .game-hole::after {
+    bottom: -20px;
+  }
+}
+
+@media (max-width: 700.98px) {
+  .top-lvl {
+    text-align: center;
+    padding: 0px 0px 0px 10px;
+  }
+
+  .top-total {
+    padding: 0px 0px 0px 10px;
+    padding: 0px 10px 0px 0px;
+    text-align: center;
+  }
+
+  .top-need {
+    padding: 0px 10px 0px 0px;
+    text-align: center;
+  }
+
+  .top-btn {
+    margin: 5px 0px 5px 0px;
+  }
+
+  .top-btn .btn {
+    font-size: 22px;
+    padding: 4px 8px 4px 8px;
+  }
+
+  .panel {
+    border: solid 0px rgba(255, 255, 255, 0);
+  }
+
+  .panel-right {
+    margin: 5px 0px 0px 0px;
+  }
+
+  .panel__items {
+    margin: 0px 0px 0px 0px;
+  }
+
+  .panel-title {
+    margin: 0px 10px;
+  }
+
+  .title {
+    padding: 0px 0px 0px 0px;
+  }
+
+  .score {
+    width: 100px;
+    font-size: 40px;
+  }
+
+  .hummers {
+    margin: 0px 0px 0px 10px;
+  }
+
+  .store-price__fisrst-help {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 479.98px) {
+  .top {
+    font-size: 22px;
+  }
+
+  .top-lvl span {
+    font-size: 35px;
+  }
+
+  .top-btn .btn {
+    padding: 2px 5px 2px 5px;
+  }
+
+  .title {
+    font-size: 50px;
+  }
+
+  .score {
+    width: 80px;
+  }
+
+  .game {
+    height: 306px;
   }
 }

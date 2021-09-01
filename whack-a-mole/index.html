@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="shortcut icon" href="img/favicon.png">
+	<link rel="shortcut icon" href="img/favicon.ico">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -107,6 +107,55 @@
 
 							</ul>
 						</div>
+
+					</div>
+				</div>
+
+				<main>
+					<h1 class="title">Whack-a-mole!
+						<span class="score">0</span>
+					</h1>
+					<div class="game">
+						<div class="game-hole">
+							<div class="game-mole"></div>
+						</div>
+						<div class="game-hole">
+							<div class="game-mole"></div>
+						</div>
+						<div class="game-hole">
+							<div class="game-mole"></div>
+						</div>
+						<div class="game-hole">
+							<div class="game-mole"></div>
+						</div>
+						<div class="game-hole">
+							<div class="game-mole"></div>
+						</div>
+						<div class="game-hole">
+							<div class="game-mole"></div>
+						</div>
+						<div class="game-hole">
+							<div class="game-mole"></div>
+						</div>
+						<div class="game-hole">
+							<div class="game-mole"></div>
+						</div>
+						<div class="game-hole">
+							<div class="game-mole"></div>
+						</div>
+
+					</div>
+
+					<audio id="pow-sound" src="audio/ugh.mp3"></audio>
+
+				</main>
+
+				<div class="panel-wrap__right">
+
+					<div class="top-btn">
+						<button class="btn" id="btnSaveGame" onclick="saveGame()">Fast Save</button>
+					</div>
+					<div class="panel-right panel">
 						<div class="store">
 							<h2 class="panel-title">Store</h2>
 							<ul class="panel__items hearts">
@@ -122,54 +171,6 @@
 								</li>
 							</ul>
 						</div>
-					</div>
-				</div>
-
-				<main>
-					<h1 class="title">Whack-a-mole!
-						<span class="score">0</span>
-					</h1>
-					<div class="game">
-						<div class="game-hole game__hole1">
-							<div class="game-mole"></div>
-						</div>
-						<div class="game-hole game__hole2">
-							<div class="game-mole"></div>
-						</div>
-						<div class="game-hole game__hole3">
-							<div class="game-mole"></div>
-						</div>
-						<div class="game-hole game__hole1">
-							<div class="game-mole"></div>
-						</div>
-						<div class="game-hole game__hole2">
-							<div class="game-mole"></div>
-						</div>
-						<div class="game-hole game__hole3">
-							<div class="game-mole"></div>
-						</div>
-						<div class="game-hole game__hole4">
-							<div class="game-mole"></div>
-						</div>
-						<div class="game-hole game__hole5">
-							<div class="game-mole"></div>
-						</div>
-						<div class="game-hole game__hole6">
-							<div class="game-mole"></div>
-						</div>
-					</div>
-
-					<audio id="pow-sound" src="audio/ugh.mp3"></audio>
-
-				</main>
-
-				<div class="panel-wrap__right">
-
-					<div class="top-btn">
-						<button class="btn" id="btnSaveGame" onclick="saveGame()">Fast Save</button>
-					</div>
-					<div class="panel-right panel">
-						<h2 class="panel-title">Statistic score</h2>
 					</div>
 					<div class="top-btn">
 						<button class="btn" id="btnLoadGame" onclick="loadGame()">Load Save</button>

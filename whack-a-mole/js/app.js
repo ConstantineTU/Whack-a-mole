@@ -43,9 +43,8 @@ let priceFirstHelp = 50// стоимость аптечки
 function getScore() {
 	let hearts = document.querySelectorAll('.heart')
 	let getAudio = document.getElementById('pow-sound')
-	if (score === 999) score = 0
 	scoreLvl = hearts.length
-	score = score + scoreLvl
+	score = score + scoreLvl * 20
 	getAudio.currentTime = 0
 	getAudio.play()
 	this.parentNode.classList.remove('up')
@@ -115,7 +114,6 @@ function startGame() {
 		let heart = document.querySelector('.heart')
 		heart.remove()
 		if (hearts.length !== 0 && hummers.length !== 7) {//при потере сердца игрок получает 8 молотков
-			gameBoard.style.cursor = "url(../../img/Hammer.cur), url(../../img/Hammer.png) 25 25, default";
 			for (let i = 1; i <= 8; i++) {
 				let hummerNew = hummerClone.cloneNode(true)
 				panelHummers.appendChild(hummerNew)
@@ -337,9 +335,6 @@ holes.forEach(hole => (hole.addEventListener('click', function (e) {
 		let hummer = document.querySelector('.hummer')
 		if (gaming !== false && hummer !== null) {
 			hummer.remove()
-		}
-		if (hummer === null) {
-			gameBoard.style.cursor = 'pointer'
 		}
 	}
 })))
