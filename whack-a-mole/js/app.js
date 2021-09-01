@@ -44,7 +44,7 @@ function getScore() {
 	let hearts = document.querySelectorAll('.heart')
 	let getAudio = document.getElementById('pow-sound')
 	scoreLvl = hearts.length
-	score = score + scoreLvl * 20
+	score = score + scoreLvl
 	getAudio.currentTime = 0
 	getAudio.play()
 	this.parentNode.classList.remove('up')
