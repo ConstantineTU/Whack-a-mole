@@ -42,7 +42,7 @@ let priceFirstHelp = 50// стоимость аптечки
 // Функция при попадании по противнику накапливает очки за раунд и отправляет противника обратно в дыру
 function getScore() {
 	let hearts = document.querySelectorAll('.heart')
-	let getAudio = document.getElementById('pow-sound')
+	const getAudio = document.getElementById('pow-sound')
 	scoreLvl = hearts.length
 	score = score + scoreLvl
 	getAudio.currentTime = 0
@@ -94,6 +94,10 @@ function molesUp() {
 				btnNewGame.classList.remove('disabled')
 				btnSaveGame.disabled = false
 				btnSaveGame.classList.remove('disabled')
+				if (localStorage.getItem('saveGameClick') === 'true') {
+					btnLoadGame.disabled = false
+					btnLoadGame.classList.remove('disabled')
+				}
 				expLvlFactor--
 				expLvlFactorBoard.textContent = expLvlFactor
 			}
