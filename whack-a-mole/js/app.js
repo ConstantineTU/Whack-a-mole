@@ -13,14 +13,14 @@ const btnSaveGame = document.getElementById('btnSaveGame')// кнопка сох
 const btnLoadGame = document.getElementById('btnLoadGame')// кнопка загрузки игры
 const panelHummers = document.querySelector('.hummers')// панель молотков
 const panelHearts = document.querySelector('.hearts')// панель здоровья
-
+const getAudio = document.getElementById('pow-sound')
 let topLvlNumber = document.querySelector('.top-lvl__number')// Уровень игрока
 let topNeedScore = document.querySelector('.top-need__score')// Отображение необходимого количества очков для перехода на новый уровень
 let gameBoard = document.querySelector('.game')// Игровая панель где происходит соновная игра
 let storePriceFisrstHelp = document.querySelector('.store-price__fisrst-help')// стоимость аптечки в магазине
 let expLvlFactorBoard = document.querySelector('.expLvlFactor')// отображение множителя очков опыта
 let expLvlFactor = 3// начальный уровень очков опыта, когда сердец 3
-let requiredNumberOfPoints = 50// Необходимое количество очков для перехода на новый уровень
+let requiredPoints = 50// Необходимое количество очков для перехода на новый уровень
 let level = 1// уровень игрока
 let downHealth = false
 let gaming = false// обозначение, что игрок находится в игре
@@ -41,10 +41,7 @@ let priceFirstHelp = 50// стоимость аптечки
 // functions
 // Функция при попадании по противнику накапливает очки за раунд и отправляет противника обратно в дыру
 function getScore() {
-	let hearts = document.querySelectorAll('.heart')
-	const getAudio = document.getElementById('pow-sound')
-	scoreLvl = hearts.length
-	score = score + scoreLvl
+	score += scoreLvl
 	getAudio.currentTime = 0
 	getAudio.play()
 	this.parentNode.classList.remove('up')
@@ -52,7 +49,6 @@ function getScore() {
 }
 // Функция случайного времени для появления кротов 
 function randomTime(min, max) {
-	console.log('min: ' + min + ' max: ' + max)
 	return Math.floor(Math.random() * (max - min) + min)
 }
 // Функция случайного появления крота в разных дырах
@@ -70,16 +66,14 @@ function molesUp() {
 	let mole = randomMole(holes)
 	mole.classList.add('up')
 	setTimeout(() => {
-		console.log(time)
 		mole.classList.remove('up')
-		if (hummers.length === 0) {// Если молотки заканчиваются, то
-			if (hearts.length !== 0) {//То идёт проверка на наличие здоровья
+		if (!hummers.length) {// Если молотки заканчиваются, то
+			if (hearts.length) {//То идёт проверка на наличие здоровья
 				let heart = document.querySelector('.heart')
 				score = 0
 				scoreBoard.textContent = score
 				heart.remove()// И если проверка проходит, игрок теряет 1 сердце
-				if (hearts.length !== 0 && hummers.length !== 7) {//при потере сердца игрок получает 8 молотков
-					gameBoard.style.cursor = "url(../../img/Hammer.cur), url(../../img/Hammer.png) 25 25, default";
+				if (hearts.length && hummers.length !== 7) {//при потере сердца игрок получает 8 молотков
 					for (let i = 1; i <= 8; i++) {
 						let hummerNew = hummerClone.cloneNode(true)
 						panelHummers.appendChild(hummerNew)
@@ -112,20 +106,22 @@ function molesUp() {
 function startGame() {
 	let hummers = document.querySelectorAll('.hummer')
 	let hearts = document.querySelectorAll('.heart')
-	if (hearts.length !== 0 && hummers.length === 0) {// исправление бага
+	scoreLvl = hearts.length
+	if (hearts.length && !hummers.length) {// исправление бага
 		let heart = document.querySelector('.heart')
 		heart.remove()
-		if (hearts.length !== 0 && hummers.length !== 7) {//при потере сердца игрок получает 8 молотков
+		if (hearts.length && hummers.length !== 7) {//при потере сердца игрок получает 8 молотков
 			for (let i = 1; i <= 8; i++) {
 				let hummerNew = hummerClone.cloneNode(true)
 				panelHummers.appendChild(hummerNew)
 			}
 		}
 	}
-	if (hummers.length !== 0 && hearts.length !== 0) {// если молотки закончились, то игра не начнётся
+	if (hummers.length) {// если молотки закончились, то игра не начнётся
 		let heart = document.querySelector('.heart')
+
 		let lvlUpTimeoutSetTimeout = setTimeout(() => {// таймер по окончанию которого игрок либо теряет здоровье, либо поднимает уровень, либо ничего не происходит
-			if (endGame !== false && score < 10) {// если вы не набрали 10 очков, то вы теряете здоровье
+			if (endGame && score < 10) {// если вы не набрали 10 очков, то вы теряете здоровье
 				heart.remove()
 				expLvlFactor--
 				expLvlFactorBoard.textContent = expLvlFactor
@@ -133,19 +129,19 @@ function startGame() {
 				totalScore += score
 				totalBoardScore.textContent = totalScore
 			}
-			if (totalScore >= requiredNumberOfPoints && score !== 0) {// происходит проверка, набрал ли игрок нужное количество очков для перехода на новый уровень
+			if (totalScore >= requiredPoints && score) {// происходит проверка, набрал ли игрок нужное количество очков для перехода на новый уровень
 				level++
-				if (requiredNumberOfPoints < 1150) {
-					requiredNumberOfPoints += (Math.floor(requiredNumberOfPoints * 1.20) + 25)
-				} else if (requiredNumberOfPoints > 1150 && requiredNumberOfPoints < 3600) {
-					requiredNumberOfPoints += (Math.floor(requiredNumberOfPoints * 1.15) + 50) - requiredNumberOfPoints
-				} else if (requiredNumberOfPoints > 3600 && requiredNumberOfPoints < 5000) {
-					requiredNumberOfPoints += (Math.floor(requiredNumberOfPoints * 1.10) + 100) - requiredNumberOfPoints
-				} else if (requiredNumberOfPoints >= 5000) {
-					requiredNumberOfPoints += (Math.floor(requiredNumberOfPoints * 1.05) + 150) - requiredNumberOfPoints
+				if (requiredPoints < 1150) {
+					requiredPoints += (Math.floor(requiredPoints * 1.20) + 25)
+				} else if (requiredPoints > 1150 && requiredPoints < 3600) {
+					requiredPoints += (Math.floor(requiredPoints * 1.15) + 50) - requiredPoints
+				} else if (requiredPoints > 3600 && requiredPoints < 5000) {
+					requiredPoints += (Math.floor(requiredPoints * 1.10) + 100) - requiredPoints
+				} else if (requiredPoints >= 5000) {
+					requiredPoints += (Math.floor(requiredPoints * 1.05) + 150) - requiredPoints
 				}
 				topLvlNumber.textContent = level
-				topNeedScore.textContent = requiredNumberOfPoints
+				topNeedScore.textContent = requiredPoints
 				if (min >= 150) { // повышение сложности при повышении уровня
 					min -= 50
 				} else if (max <= 600 && max > 300) {
@@ -160,11 +156,9 @@ function startGame() {
 				}
 				if (startGameTimeout >= 10000) {
 					startGameTimeout -= 1000
-					console.log('startGameTimeout: ' + startGameTimeout)
 				}
 				if (lvlUpTimeout >= 11000) {
 					lvlUpTimeout -= 1000
-					console.log('lvlUpTimeout: ' + lvlUpTimeout)
 				}
 				let hummers = document.querySelectorAll('.hummer')
 				if (hummers.length <= 7) {// если при переходе на новый уровень у игрока имеется меньше 8 молотков, то он получает + 1 молоток
@@ -217,11 +211,11 @@ function newGame() {
 	level = 1
 	score = 0
 	totalScore = 0
-	requiredNumberOfPoints = 50
+	requiredPoints = 50
 	totalBoardScore.textContent = totalScore
 	scoreBoard.textContent = score
 	topLvlNumber.textContent = level
-	topNeedScore.textContent = requiredNumberOfPoints
+	topNeedScore.textContent = requiredPoints
 	priceFirstHelp = 50
 	storePriceFisrstHelp.textContent = priceFirstHelp
 	expLvlFactor = 3
@@ -282,7 +276,7 @@ function saveGame() {
 	localStorage.setItem('totalScore', totalScore)
 	localStorage.setItem('expLvlFactor', expLvlFactor)
 	localStorage.setItem('level', level)
-	localStorage.setItem('requiredNumberOfPoints', requiredNumberOfPoints)
+	localStorage.setItem('requiredPoints', requiredPoints)
 	autoLoadGame = true
 	localStorage.setItem('autoLoadGame', autoLoadGame)
 	saveGameClick = true
@@ -294,8 +288,8 @@ function saveGame() {
 function loadGame() {
 	let hearts = document.querySelectorAll('.heart')
 	for (let i = 1; i <= hearts.length; i++) {
-		let heart = document.querySelector('.heart')
 		if (heart !== null) {
+			let heart = document.querySelector('.heart')
 			heart.remove()
 		}
 	}
@@ -322,8 +316,8 @@ function loadGame() {
 	expLvlFactorBoard.textContent = expLvlFactor
 	level = +(localStorage.getItem('level'))
 	topLvlNumber.textContent = level
-	requiredNumberOfPoints = +(localStorage.getItem('requiredNumberOfPoints'))
-	topNeedScore.textContent = requiredNumberOfPoints
+	requiredPoints = +(localStorage.getItem('requiredPoints'))
+	topNeedScore.textContent = requiredPoints
 	autoLoadGame = true
 	localStorage.setItem('autoLoadGame', autoLoadGame)
 	saveGameClick = true
@@ -335,7 +329,7 @@ holes.forEach(hole => (hole.addEventListener('click', function (e) {
 		moles.forEach(mole => (mole.addEventListener('click', getScore)))
 	} else if (e.target.classList[0] === 'game-hole') {
 		let hummer = document.querySelector('.hummer')
-		if (gaming !== false && hummer !== null) {
+		if (gaming && hummer !== null) {
 			hummer.remove()
 		}
 	}
@@ -351,10 +345,22 @@ if (localStorage.getItem('autoLoadGame') === 'true') {
 	btnLoadGame.classList.add('disabled')
 }
 
-console.log('Для удобства проверки моей работы - вывожу в консоль браузера самооценку своего проекта по пунктам, с указанием баллов за каждый выполненный мною пункт')
-console.log('Считаю, что я разобрался в коде чужого проекта, понял его и воспроизвёл исходное приложение. Правки и изменения не ухудшают внешний вид и функционал исходного проекта - 10 баллов')
-console.log('Дополнил исходный проект обязательным дополнительным функционалом (Присутствует кнопка сохранения, при нажатии на которую происходит сохранение всех ключивых данных в localStorage, игра будет загружать сохранение при перезагрузке страницы и до тех пор пока игрок не нажмет на кнопку New Game, но данные в localStorage не изменяся пока вы их не сохраните, так что если игрок случайно нажмёт на New Game, то он может снова нажать на Load Game и продолжить играь на своём сохранении), (так-же происходит повышение уровня при достижении определенного Score, при повышении уровня - усложняется игра, игра становится быстрее и кроты оже становятся быстрее) указанным в описании задания - 10 баллов')
-console.log('Дополнил исходный проект дополнительным функционалом на выбор из тех, которые перечислены в описании задания - Добавлены молотки, при промахе вы теряете молоток, при потере всех молотков вы теряете сердце, при потере сердца вы получаете 8 молотков, присутствует магазин аптечек для увеличения сердец, чем больше сердец - тем больше получаешь опыта за один удар по кроту, мышь имеет курсор молотка, есть звуки при попадании по кроту и анимация удара молотком  - 10 баллов')
-console.log('Самооценка - Score: 30/30')
-console.log('Спасибо за проверку, надеюсь, что я прошёл задание на максимальный балл, если вы обнаружили у меня какие-то недочеты, прошу вас указать их при проверке. ')
-console.log('P.S. Больше описания в файле JS в комментариях в коде')
+function selfTest() {
+	console.log(`
+Первый пункт - 10 баллов
+Второй пункт - Присутствует кнопка сохранения, при нажатии на которую происходит сохранение всех ключивых данных в localStorage, 
+	игра будет загружать сохранение при перезагрузке страницы и до тех пор пока игрок не нажмет на кнопку New Game, 
+	но данные в localStorage не изменятся пока вы их не сохраните, так что если игрок случайно нажмёт на New Game, 
+	то он может снова нажать на Load Game и продолжить играть на своём сохранении), 
+	(так-же происходит повышение уровня при достижении определенного Score, 
+	при повышении уровня - усложняется игра, игра становится быстрее и кроты тоже становятся быстрее) - 10 баллов
+
+Третий пункт - Добавлены молотки, при промахе вы теряете молоток, при потере всех молотков вы теряете сердце, при потере сердца 	
+	вы получаете 8 молотков, присутствует магазин аптечек для увеличения сердец, чем больше сердец - 
+	тем больше получаешь опыта за один удар по кроту, мышь имеет курсор молотка, 
+	есть звуки при попадании по кроту и анимация удара молотком  - 10 баллов
+	Самооценка - Score: 30/30
+	Спасибо за проверку, надеюсь, что я прошёл задание на максимальный балл, если вы обнаружили у меня какие-то недочеты, прошу вас указать их при проверке. 
+P.S. Больше описания в файле JS в комментариях в коде`)
+}
+selfTest()
