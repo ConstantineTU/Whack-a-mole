@@ -1,5 +1,3 @@
-
-
 // variables
 const moles = document.querySelectorAll('.game-mole')// коллекция кротов
 const holes = document.querySelectorAll('.game-hole')// коллекция дыр
@@ -288,8 +286,8 @@ function saveGame() {
 function loadGame() {
 	let hearts = document.querySelectorAll('.heart')
 	for (let i = 1; i <= hearts.length; i++) {
+		let heart = document.querySelector('.heart')
 		if (heart !== null) {
-			let heart = document.querySelector('.heart')
 			heart.remove()
 		}
 	}
