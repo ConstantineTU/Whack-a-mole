@@ -94,8 +94,6 @@ function molesUp() {
 				btnNewGame.classList.remove('disabled')
 				btnSaveGame.disabled = false
 				btnSaveGame.classList.remove('disabled')
-				btnLoadGame.disabled = false
-				btnLoadGame.classList.remove('disabled')
 				expLvlFactor--
 				expLvlFactorBoard.textContent = expLvlFactor
 			}
